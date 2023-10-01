@@ -1,10 +1,12 @@
 package com.stock.app.core.utilies.mappers;
 
-import com.stock.app.core.utilies.mappers.ModelMapperService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
+import org.springframework.stereotype.Service;
 
+@Service
+@AllArgsConstructor
 public class ModelMapperManager implements ModelMapperService {
     private ModelMapper modelMapper;
 
@@ -23,4 +25,5 @@ public class ModelMapperManager implements ModelMapperService {
                 .setMatchingStrategy(MatchingStrategies.STANDARD);
         return this.modelMapper;
     }
+
 }
