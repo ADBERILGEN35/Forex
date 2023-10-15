@@ -1,12 +1,11 @@
 package com.stock.app.entities.concretes;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
+@Entity
 @Data
+@Table(name = "stock_data")
 public class StockData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +17,7 @@ public class StockData {
     @Column(name = "text")
     private String text;
 
-    @Column(name = "lastpricestr")
-    private Double lastpricestr;
+    @Column(name = "lastprice")
+    private Double lastprice;
 
 }
