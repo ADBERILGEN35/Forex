@@ -1,21 +1,24 @@
 package com.stock.app.entities.concretes;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
 public class StockData {
-    private String dusuk;
-    private String hacimlot;
-    private String acilis;
-    private String simge;
-    private String satis;
-    private String aciklama;
-    private String son;
-    private String hacimtl;
-    private String gunlukyuzde;
-    private String yuksek;
-    private String alis;
-    private String fark;
-    private String sembol;
-    private String dunkukapanis;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "code")
+    private String code;
+
+    @Column(name = "text")
+    private String text;
+
+    @Column(name = "lastpricestr")
+    private Double lastpricestr;
+
 }
