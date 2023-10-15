@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class GetAllStockDataResponse {
     private String code;
     private String text;
-    private Double lastpricestr;
+    private Double lastprice;
 }

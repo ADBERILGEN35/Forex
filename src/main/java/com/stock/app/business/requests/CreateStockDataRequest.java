@@ -22,5 +22,5 @@ public class CreateStockDataRequest {
 
     @NotNull
     @NotBlank
-    private Double lastpricestr;
+    private Double lastprice;
 }
