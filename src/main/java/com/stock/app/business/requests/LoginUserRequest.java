@@ -16,9 +16,5 @@ public class LoginUserRequest {
 
     @NotNull
     @NotBlank
-    private String email;
-
-    @NotNull
-    @NotBlank
     private String userName;
 }
