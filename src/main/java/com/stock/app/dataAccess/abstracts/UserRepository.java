@@ -12,6 +12,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
+    User findUserByEmail(String email);
+
 
     @Query("SELECT r FROM User r WHERE r.email LIKE %:email%")
     List<User> findByEmail(String email);
