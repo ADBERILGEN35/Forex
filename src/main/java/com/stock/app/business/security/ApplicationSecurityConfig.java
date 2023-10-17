@@ -34,10 +34,10 @@ public class ApplicationSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return email -> {
-            User user = userRepository.findUserByEmail(email); // Özel yöntemi kullan
+        return userName -> {
+            User user = userRepository.findByUserName(userName);
             if (user == null) {
-                throw new UsernameNotFoundException("User not found with email: " + email);
+                throw new UsernameNotFoundException("User not found with email: " + userName);
             }
             return new org.springframework.security.core.userdetails.User(
                     user.getEmail(),
