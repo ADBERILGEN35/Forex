@@ -8,7 +8,7 @@ import com.stock.app.business.responses.GetAllUserResponse;
 import com.stock.app.business.responses.GetByEmailUserResonse;
 import com.stock.app.business.responses.GetByIdUserResonse;
 import com.stock.app.business.rules.UserBusinessRules;
-import com.stock.app.business.security.JwtTokenProvider;
+import com.stock.app.business.security.JwtService;
 import com.stock.app.core.utilies.mappers.ModelMapperService;
 import com.stock.app.dataAccess.abstracts.UserRepository;
 import com.stock.app.entities.concretes.User;
@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,9 +31,9 @@ public class UserManager implements UserService {
     private ModelMapperService modelMapperService;
     private UserBusinessRules userBusinessRules;
     private BCryptPasswordEncoder passwordEncoder;
-    private AuthenticationManager authenticationManager;
     private ForexUserDetailManager forexUserDetailManager;
-    private JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
 
     @Override
@@ -80,25 +80,27 @@ public class UserManager implements UserService {
 
     @Override
     public String auth(LoginUserRequest loginUserRequest) {
+
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            loginUserRequest.getEmail(),
+                            loginUserRequest.getUserName(),
                             loginUserRequest.getPassword()
                     )
             );
 
-            String token = jwtTokenProvider.generateToken(authentication);
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+            String token = jwtService.generateToken(userDetails);
 
             return token;
-
-        } catch (AuthenticationException e) {
+        } catch (org.springframework.security.core.AuthenticationException e) {
             throw new UsernameNotFoundException("Kullanıcı adı veya şifre hatalı");
         }
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id)  {
         userRepository.deleteById(id);
     }
 }

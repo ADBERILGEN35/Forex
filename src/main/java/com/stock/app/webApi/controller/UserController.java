@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/auth")
 @AllArgsConstructor
 public class UserController {
     private UserService userService;
@@ -38,7 +38,7 @@ public class UserController {
             String token = userService.auth(loginUserRequest);
             return ResponseEntity.ok(new JwtResponse(token));
         } catch (UsernameNotFoundException e) {
-            return ResponseEntity.badRequest().body(new JwtResponse("Kullanıcı adı veya şifre hatalı"));
+                return ResponseEntity.badRequest().body(new JwtResponse("Kullanıcı adı veya şifre hatalı"));
         }
     }
 
