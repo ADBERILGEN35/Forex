@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetByIdUserResonse {
+public class GetByUserNameUserResponse {
     private String userName;
     private String password;
     private String TCKN;
