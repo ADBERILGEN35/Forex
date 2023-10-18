@@ -4,9 +4,8 @@ import com.stock.app.business.requests.CreateUserRequest;
 import com.stock.app.business.requests.LoginUserRequest;
 import com.stock.app.business.requests.UpdateUserRequest;
 import com.stock.app.business.responses.GetAllUserResponse;
-import com.stock.app.business.responses.GetByEmailUserResonse;
-import com.stock.app.business.responses.GetByIdUserResonse;
-import com.stock.app.entities.concretes.User;
+import com.stock.app.business.responses.GetByEmailUserResponse;
+import com.stock.app.business.responses.GetByUserNameUserResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +15,9 @@ public interface UserService {
 
     List<GetAllUserResponse> getAll();
 
-    List<GetByEmailUserResonse> getByEmail(String email);
+    GetByEmailUserResponse getByEmail(String email);
 
-    GetByIdUserResonse getById(Long id);
+    GetByUserNameUserResponse getByUserName(String userName);
 
     void add(CreateUserRequest createUserRequest);
 
