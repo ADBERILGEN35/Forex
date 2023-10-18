@@ -5,8 +5,9 @@ import com.stock.app.business.requests.CreateUserRequest;
 import com.stock.app.business.requests.LoginUserRequest;
 import com.stock.app.business.requests.UpdateUserRequest;
 import com.stock.app.business.responses.GetAllUserResponse;
-import com.stock.app.business.responses.GetByEmailUserResonse;
-import com.stock.app.business.responses.GetByIdUserResonse;
+
+import com.stock.app.business.responses.GetByEmailUserResponse;
+import com.stock.app.business.responses.GetByUserNameUserResponse;
 import com.stock.app.business.rules.UserBusinessRules;
 import com.stock.app.business.security.JwtService;
 import com.stock.app.core.utilies.mappers.ModelMapperService;
@@ -31,7 +32,6 @@ public class UserManager implements UserService {
     private ModelMapperService modelMapperService;
     private UserBusinessRules userBusinessRules;
     private BCryptPasswordEncoder passwordEncoder;
-    private ForexUserDetailManager forexUserDetailManager;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
@@ -46,19 +46,19 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public List<GetByEmailUserResonse> getByEmail(String email) {
-        List<User> userList = userRepository.findByEmail(email);
-        return userList.stream()
-                .map(usr -> this.modelMapperService.forResponse()
-                        .map(usr, GetByEmailUserResonse.class)).collect(Collectors.toList());
+    public GetByEmailUserResponse getByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        GetByEmailUserResponse getByEmailUserResponse = this.modelMapperService.forResponse()
+                .map(user, GetByEmailUserResponse.class);
+        return getByEmailUserResponse;
     }
 
     @Override
-    public GetByIdUserResonse getById(Long id) {
-        User user = this.userRepository.findById(id).orElseThrow();
-        GetByIdUserResonse resonse = this.modelMapperService.forResponse()
-                .map(user, GetByIdUserResonse.class);
-        return resonse;
+    public GetByUserNameUserResponse getByUserName(String userName) {
+        User user = this.userRepository.findByUserName(userName);
+        GetByUserNameUserResponse getByIdUserResponse = this.modelMapperService.forResponse()
+                .map(user, GetByUserNameUserResponse.class);
+        return getByIdUserResponse;
     }
 
     @Override
@@ -95,12 +95,12 @@ public class UserManager implements UserService {
 
             return token;
         } catch (org.springframework.security.core.AuthenticationException e) {
-            throw new UsernameNotFoundException("Kullanıcı adı veya şifre hatalı");
+            throw new UsernameNotFoundException("Username or password is wrong");
         }
     }
 
     @Override
-    public void delete(Long id)  {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 }
