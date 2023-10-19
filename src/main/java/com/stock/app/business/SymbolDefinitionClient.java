@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stock.app.business.responses.GetAllStockDataResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,10 +17,13 @@ import java.util.List;
 
 @Component
 public class SymbolDefinitionClient {
+    @Value("${forex.app.apiKey}")
+    private String apiKey;
+
+    @Value("${forex.app.url}")
+    private String url;
 
     public List<GetAllStockDataResponse> getStockDataList() {
-        String apiKey = "78FBEonrSPsUW8K76csYvx:1HAkKMAiUB2Iz6RhMwo0PA";
-        String url = "https://api.collectapi.com/economy/hisseSenedi";
 
         HttpClient httpClient = HttpClient.newHttpClient();
 
