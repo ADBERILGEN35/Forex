@@ -1,4 +1,3 @@
-
 package com.stock.app.business.concretes;
 
 import com.stock.app.dataAccess.abstracts.UserRepository;
