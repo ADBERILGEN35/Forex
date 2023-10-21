@@ -26,4 +26,9 @@ public class StockDataController {
     public List<GetAllStockDataResponse> getAll() {
         return stockDataService.getAll();
     }
+
+    @DeleteMapping("/{code}")
+    public void delete(@PathVariable String code) {
+        this.stockDataService.deleteWithCode(code);
+    }
 }

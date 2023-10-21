@@ -12,6 +12,9 @@ public interface StockDataService {
 
     void saveAllStockData();
 
+    void deleteWithCode(String code);
+
     List<GetAllStockDataResponse> getAll();
+
 
 }

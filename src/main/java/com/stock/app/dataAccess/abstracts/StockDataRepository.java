@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface StockDataRepository extends JpaRepository<StockData,String> {
+public interface StockDataRepository extends JpaRepository<StockData, String> {
+    @Transactional
+    void deleteByCode(String code);
 
     @Query("SELECT r FROM StockData r WHERE r.code LIKE %:code%")
     List<StockData> findByCode(String code);

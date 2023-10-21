@@ -32,8 +32,7 @@ public class StockDataManager implements StockDataService {
 
             if (!existingStockDataList.isEmpty()) {
                 for (StockData existingStockData : existingStockDataList) {
-                    existingStockData.setLastprice(stockDataResponse.getLastprice());
-                    stockDataRepository.save(existingStockData);
+                    stockDataRepository.updateStockDataLastPrice(existingStockData.getCode(), existingStockData.getLastprice());
                 }
             } else {
                 StockData stockData = new StockData();
@@ -44,6 +43,11 @@ public class StockDataManager implements StockDataService {
                 stockDataRepository.save(stockData);
             }
         });
+    }
+
+    @Override
+    public void deleteWithCode(String code) {
+        stockDataRepository.deleteByCode(code);
     }
 
     @Override
