@@ -1,7 +1,6 @@
 package com.stock.app.dataAccess.abstracts;
 
 import com.stock.app.entities.concretes.StockData;
-import com.stock.app.entities.concretes.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
